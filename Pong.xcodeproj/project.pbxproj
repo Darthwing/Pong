@@ -11,8 +11,12 @@
 		5196065B1AD742D300F724E8 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196065A1AD742D300F724E8 /* GameScene.swift */; };
 		5196065D1AD742D300F724E8 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5196065C1AD742D300F724E8 /* GameScene.sks */; };
 		5196065F1AD742D300F724E8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5196065E1AD742D300F724E8 /* Images.xcassets */; };
-		519606621AD742D300F724E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 519606601AD742D300F724E8 /* MainMenu.xib */; };
 		5196066E1AD742D300F724E8 /* PongTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196066D1AD742D300F724E8 /* PongTests.swift */; };
+		519606781AD7487500F724E8 /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 519606771AD7487500F724E8 /* Ball.png */; };
+		5196067A1AD82D9400F724E8 /* PongPaddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 519606791AD82D9400F724E8 /* PongPaddle.png */; };
+		5196067C1AD837D700F724E8 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 5196067B1AD837D700F724E8 /* bg.png */; };
+		5196067E1ADC207400F724E8 /* wall1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5196067D1ADC207400F724E8 /* wall1.png */; };
+		519606B01ADC7B1600F724E8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 519606AF1ADC7B1600F724E8 /* MainMenu.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,10 +36,14 @@
 		5196065A1AD742D300F724E8 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		5196065C1AD742D300F724E8 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		5196065E1AD742D300F724E8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		519606611AD742D300F724E8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		519606671AD742D300F724E8 /* PongTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PongTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5196066C1AD742D300F724E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5196066D1AD742D300F724E8 /* PongTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PongTests.swift; sourceTree = "<group>"; };
+		519606771AD7487500F724E8 /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		519606791AD82D9400F724E8 /* PongPaddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PongPaddle.png; sourceTree = "<group>"; };
+		5196067B1AD837D700F724E8 /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
+		5196067D1ADC207400F724E8 /* wall1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wall1.png; sourceTree = "<group>"; };
+		519606AF1ADC7B1600F724E8 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +85,15 @@
 		519606551AD742D300F724E8 /* Pong */ = {
 			isa = PBXGroup;
 			children = (
+				519606771AD7487500F724E8 /* Ball.png */,
+				519606791AD82D9400F724E8 /* PongPaddle.png */,
+				5196067D1ADC207400F724E8 /* wall1.png */,
+				5196067B1AD837D700F724E8 /* bg.png */,
 				519606581AD742D300F724E8 /* AppDelegate.swift */,
 				5196065A1AD742D300F724E8 /* GameScene.swift */,
+				519606AF1ADC7B1600F724E8 /* MainMenu.xib */,
 				5196065C1AD742D300F724E8 /* GameScene.sks */,
 				5196065E1AD742D300F724E8 /* Images.xcassets */,
-				519606601AD742D300F724E8 /* MainMenu.xib */,
 				519606561AD742D300F724E8 /* Supporting Files */,
 			);
 			path = Pong;
@@ -192,9 +204,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5196067E1ADC207400F724E8 /* wall1.png in Resources */,
 				5196065D1AD742D300F724E8 /* GameScene.sks in Resources */,
 				5196065F1AD742D300F724E8 /* Images.xcassets in Resources */,
-				519606621AD742D300F724E8 /* MainMenu.xib in Resources */,
+				5196067C1AD837D700F724E8 /* bg.png in Resources */,
+				519606781AD7487500F724E8 /* Ball.png in Resources */,
+				519606B01ADC7B1600F724E8 /* MainMenu.xib in Resources */,
+				5196067A1AD82D9400F724E8 /* PongPaddle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,17 +250,6 @@
 			targetProxy = 519606681AD742D300F724E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		519606601AD742D300F724E8 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				519606611AD742D300F724E8 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5196066F1AD742D300F724E8 /* Debug */ = {
@@ -404,6 +409,7 @@
 				519606731AD742D300F724E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		519606741AD742D300F724E8 /* Build configuration list for PBXNativeTarget "PongTests" */ = {
 			isa = XCConfigurationList;
@@ -412,6 +418,7 @@
 				519606761AD742D300F724E8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
