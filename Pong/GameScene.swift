@@ -9,7 +9,11 @@
 import SpriteKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    
+    
     var timer = NSTimer()
+    
 
     var ball = SKSpriteNode()
     var ballTexture = SKTexture(imageNamed: "Ball.png")
@@ -28,13 +32,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     var ballBit:UInt32 = 1
-    var scoreBit:UInt32 = 2
-    var scoreBit2:UInt32 = 4
+    var scoreBit:UInt32 = 3
+    var scoreBit2:UInt32 = 5
+    var paddleBit:UInt32 = 7
+    var paddleBit2:UInt32 = 9
+    
+    
     
     var count = 0
     var play = 0
     var scoreP1 = 0
     var scoreP2 = 0
+    var launch = 0
+    
+    
+    
     
     var welcome = SKLabelNode()
     var instructions = SKLabelNode()
@@ -54,6 +66,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         self.addChild(words)
+        
+
         
         /* Setup your scene here */
         //        __________________________________________________________________
@@ -101,23 +115,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         
         
+            
+        
+        
+        
         
     }
     
     override func mouseDown(theEvent: NSEvent) {
         /* Called when a mouse click occurs */
+//        println("Mouse is pressed")
+//        var menu = 0
+//        var veloX = ball.physicsBody?.velocity.dx
+//        var veloY = ball.physicsBody?.velocity.dy
+//        var ballVelocity:CGVector = CGVector(dx: veloX!, dy: veloY!)
+//        if menu == 0{
+//            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+//            menu++
+//        }
+//        if menu == 1{
+//            ball.physicsBody?.velocity = ballVelocity
+//        }
         
         
         
         
         
     }
-     override func keyDown(theEvent: NSEvent) {
+    override func keyDown(theEvent: NSEvent){
         if theEvent.keyCode == 126{if count == 0 {paddle.physicsBody?.velocity = CGVector(dx: 0, dy: 750)}; count++}
         if theEvent.keyCode == 125{if count == 0{paddle.physicsBody?.velocity = CGVector(dx: 0, dy: -750)}; count++}
         if theEvent.keyCode == 13{if count == 0{paddle2.physicsBody?.velocity = CGVector(dx: 0, dy: 750)}; count++}
         if theEvent.keyCode == 1{if count == 0{paddle2.physicsBody?.velocity = CGVector(dx: 0, dy: -750)}; count++}
-        if theEvent.keyCode == 49{ball.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 4))}
+        if theEvent.keyCode == 49{if launch == 0{ballGo()}}
         
         
     }
@@ -139,6 +169,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             ball.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
             ball.physicsBody?.linearDamping = 0
             ball.zPosition = 10
+            ball.physicsBody?.mass = 0.5
             ball.physicsBody?.restitution = 1
             ball.physicsBody?.allowsRotation = false
             ball.physicsBody?.categoryBitMask = ballBit
@@ -154,7 +185,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             paddle.position = CGPoint(x: CGRectGetMaxX(self.frame)-50, y: CGRectGetMidY(self.frame))
             paddle.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(22, 175))
             paddle.physicsBody?.dynamic = true
-            paddle.physicsBody?.mass = 1000000
+            paddle.physicsBody?.allowsRotation = false
+            paddle.physicsBody?.categoryBitMask = paddleBit
+            paddle.physicsBody?.contactTestBitMask = paddleBit
+            paddle.physicsBody?.collisionBitMask = paddleBit
+            paddle.physicsBody?.mass = 1000000000000000
             paddle.physicsBody?.linearDamping = 0
             paddle.physicsBody?.restitution = 0
             paddle.physicsBody?.friction = 0
@@ -168,8 +203,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             paddle2.position = CGPoint(x: CGRectGetMinX(self.frame)+50, y: CGRectGetMidY(self.frame))
             paddle2.physicsBody = SKPhysicsBody(rectangleOfSize: CGSizeMake(22, 175))
             paddle2.physicsBody?.dynamic = true
-            paddle2.physicsBody?.mass = 1000000
-            paddle.physicsBody?.linearDamping = 0
+            paddle2.physicsBody?.categoryBitMask = paddleBit2
+            paddle2.physicsBody?.contactTestBitMask = paddleBit2
+            paddle2.physicsBody?.collisionBitMask = paddleBit2
+            paddle2.physicsBody?.allowsRotation = false
+            paddle2.physicsBody?.categoryBitMask = paddleBit2
+            paddle2.physicsBody?.contactTestBitMask = paddleBit
+            paddle2.physicsBody?.mass = 1000000000000000
+            paddle2.physicsBody?.linearDamping = 0
             paddle2.physicsBody?.restitution = 0
             paddle2.physicsBody?.friction = 0
             self.addChild(paddle2)
@@ -233,46 +274,124 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         println(contact.bodyA.categoryBitMask)
         println(contact.bodyB.categoryBitMask)
         
+        if contact.bodyA.categoryBitMask == ballBit && contact.bodyB.categoryBitMask == paddleBit{ball.physicsBody?.applyImpulse(CGVector(dx: -10, dy: 0))}
+        if contact.bodyA.categoryBitMask == ballBit && contact.bodyB.categoryBitMask == paddleBit2{ball.physicsBody?.applyImpulse(CGVector(dx: 10, dy: 0))}
+
+        
         if contact.bodyA.categoryBitMask == ballBit && contact.bodyB.categoryBitMask == scoreBit{
+            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            var ballMove = SKAction.moveByX( -CGRectGetMidX(self.frame) , y: CGRectGetMidY(self.frame)-ball.position.y, duration: 0)
             scoreP2++
-            ball.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
-//            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-//            ball.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 4))
-            ball.zPosition = 11
-            Scoring()}
+            Scoring()
+            launch = 0
+            ball.runAction(ballMove)
+            ballGo2()}
         
         if contact.bodyA.categoryBitMask == ballBit && contact.bodyB.categoryBitMask == scoreBit2{
-            scoreP1++
-            ball.position = CGPoint(x: CGRectGetMidX(self.frame), y: CGRectGetMidY(self.frame))
             ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-//            ball.physicsBody?.applyImpulse(CGVector(dx: -3, dy: 4))
-            ball.zPosition = 11
-            Scoring()}
+            var ballMove2 = SKAction.moveByX( CGRectGetMidX(self.frame) , y: CGRectGetMidY(self.frame)-ball.position.y, duration: 0)
+            scoreP1++
+            Scoring()
+            launch = 0
+            ball.runAction(ballMove2)
+            ballGo()}
 
         
             
         
     }
     
-    func Scoring(){
-        P1.removeFromParent()
-        P1.text = String(scoreP1)
-        P1.fontName = "PressStart2P"
-        P1.fontColor = NSColor.redColor()
-        P1.position = CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMaxY(self.frame)-400)
-        P1.fontSize = 75
-        P1.zPosition = 15
-        self.addChild(P1)
+    func ballReset(){
+       
         
-        P2.removeFromParent()
-        P2.text = String(scoreP2)
-        P2.fontName = "PressStart2P"
-        P2.fontColor = NSColor.redColor()
-        P2.position = CGPoint(x: CGRectGetMidX(self.frame)-200, y: CGRectGetMaxY(self.frame)-400)
-        P2.fontSize = 75
-        P2.zPosition = 15
-        self.addChild(P2)
     }
+    
+    func Scoring(){
+        if scoreP1 < 10 {
+            P1.removeFromParent()
+            P1.text = String(scoreP1)
+            P1.fontName = "PressStart2P"
+            P1.fontColor = NSColor.redColor()
+            P1.position = CGPoint(x: CGRectGetMidX(self.frame)+200, y: CGRectGetMaxY(self.frame)-400)
+            P1.fontSize = 75
+            P1.zPosition = 15
+            self.addChild(P1)
+        }
+    
+        
+        if (scoreP1 == 10) {
+
+            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+
+            P1.removeFromParent()
+            P1.text = "You Win"
+            P1.fontName = "PressStart2P"
+            P1.fontColor = NSColor.redColor()
+            P1.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMaxY(self.frame)-400)
+            P1.fontSize = 50
+            P1.zPosition = 15
+            ball.removeFromParent()
+            self.addChild(P1)
+            
+            P2.removeFromParent()
+            P2.fontName = "PressStart2P"
+            P2.fontColor = NSColor.redColor()
+            P2.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMaxY(self.frame)-400)
+            P2.fontSize = 50
+            P2.zPosition = 15
+            P2.text = "You lose"
+            self.addChild(P2)
+        }
+        
+        
+
+        if scoreP2 < 10 {
+            P2.removeFromParent()
+            P2.text = String(scoreP2)
+            P2.fontName = "PressStart2P"
+            P2.fontColor = NSColor.redColor()
+            P2.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMaxY(self.frame)-400)
+            P2.fontSize = 75
+            P2.zPosition = 15
+            self.addChild(P2)
+        }
+        
+        if (scoreP2 == 10) {
+            
+            ball.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            P2.removeFromParent()
+            P2.text = "You Win"
+            P2.fontName = "PressStart2P"
+            P2.fontColor = NSColor.redColor()
+            P2.position = CGPoint(x: CGRectGetMidX(self.frame)-300, y: CGRectGetMaxY(self.frame)-400)
+            P2.fontSize = 50
+            P2.zPosition = 15
+            ball.removeFromParent()
+            
+            self.addChild(P2)
+            P1.removeFromParent()
+            P1.fontSize = 50
+            P1.position = CGPoint(x: CGRectGetMidX(self.frame)+300, y: CGRectGetMaxY(self.frame)-400)
+            P1.text = "You lose"
+            self.addChild(P1)
+        }
+
+        
+        
+        
+    }
+    
+    func ballGo(){
+        ball.physicsBody?.applyImpulse(CGVector(dx: 200, dy: 100))
+        launch++
+        
+    }
+    func ballGo2(){
+        ball.physicsBody?.applyImpulse(CGVector(dx: -200, dy: 100))
+        launch++
+        
+    }
+
     
     override func update(currentTime: CFTimeInterval) {
         /* Called before each frame is rendered */
